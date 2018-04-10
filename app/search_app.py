@@ -14,7 +14,7 @@ from bokeh.models import ColumnDataSource, Range1d, LabelSet, Label
 
 c_dict = dill.load( open("app/data/morecommon_dict.pkl","rb"))
 vocab = c_dict.keys()
-books = pd.read_csv('app/data/allbooks.csv')
+books = pd.read_csv('app/data/Allbooks.csv')
 
 def search_app(S, categories = ['fiction'], n = 5):
     cat_books = books[books['category'].isin(['fiction'])]
