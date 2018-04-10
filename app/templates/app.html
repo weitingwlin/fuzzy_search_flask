@@ -5,26 +5,26 @@
 
    {{ bokeh_js|safe}}
   <h1>Fuzzy search</h2>
+    <form class="form-group" action="" method="post">
+        <p>
+          {{ form.hidden_tag() }}
+            {{ form.searchstring.label }}
+            <br>
+            {{ form.searchstring(size=64) }}
+        </p>
+        <br>
+        <button type="button" class="btn">{{ form.submit() }}</button>
+    </form>
 
-      <form class="form-group" action="" method="post">
-          <p>
-            {{ form.hidden_tag() }}
-              {{ form.searchstring.label }}
-              <br>
-              {{ form.searchstring(size=64) }}
-          </p>
-          <br>
-          <button type="button" class="btn">{{ form.submit() }}</button>
-      </form>
 
-      <form class="form-group" action="" method="post">
+      <!-- <form class="form-group" action="" method="post">
           <label class="checkbox-inline">
               <input type="checkbox" value="">{{ form.fiction() }} {{ form.fiction.label }}
           </label>
           <label class="checkbox-inline">
               <input type="checkbox" value="">{{ form.history() }} {{ form.history.label }}
             </label>
-      </form>
+      </form> -->
 
 
 
@@ -33,6 +33,8 @@
       <div class="row">
           <div class="col-md-4">
       <!-- <div> -->
+
+
               <h3>
                   {% for res in strout %}
                     <a href={{ res[1] }} target="_blank">  {{ res[0] }}</a>

@@ -17,9 +17,10 @@ c_dict = dill.load( open("app/data/morecommon_dict.pkl","rb"))
 vocab = c_dict.keys()
 books = pd.read_csv('app/data/Allbooks.csv')
 stop_words = dill.load( open("app/data/stop_words.pkl","rb"))
+cat_books = books[books['category'].isin(['fiction'])]
+
 
 def search_app(S, categories = ['fiction'], n = 5):
-    cat_books = books[books['category'].isin(['fiction'])]
 #     print(cat_books)
     titles, ind = fuzzy_find2(S, cat_books, maxshow=n)
     links = cat_books['link'][ind]
@@ -38,8 +39,8 @@ def trim_string(S):
 
     mystr =[s.lower() for s in mystr1]
     # Remove "the", "a", "an"
-    nonsense = ["the", "a", "an", "and", "to","on", "from", "in", "by"]
-    mystr = [word for word in mystr if word.lower() not in nonsense]
+    # nonsense = ["the", "a", "an", "and", "to","on", "from", "in", "by"]
+    # mystr = [word for word in mystr if word.lower() not in nonsense]
 
     # remove more
     mystr_less = [word for word in mystr if word.lower() not in stop_words]
