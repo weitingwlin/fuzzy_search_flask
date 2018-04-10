@@ -5,16 +5,18 @@ import string
 import re
 import dill
 from itertools import product, combinations
-from nltk.corpus import stopwords
+# from nltk.corpus import stopwords
 from scipy.stats import rankdata
 from sklearn import manifold
 from numpy.random import random
 from bokeh.plotting import figure,  show, output_file
 from bokeh.models import ColumnDataSource, Range1d, LabelSet, Label
+import dill
 
 c_dict = dill.load( open("app/data/morecommon_dict.pkl","rb"))
 vocab = c_dict.keys()
 books = pd.read_csv('app/data/Allbooks.csv')
+stop_words = dill.load( open("app/data/stop_words.pkl","rb"))
 
 def search_app(S, categories = ['fiction'], n = 5):
     cat_books = books[books['category'].isin(['fiction'])]
@@ -22,6 +24,7 @@ def search_app(S, categories = ['fiction'], n = 5):
     titles, ind = fuzzy_find2(S, cat_books, maxshow=n)
     links = cat_books['link'][ind]
     zipped = [[t,l] for t, l in zip(titles, links)]
+
     return zipped
 
 
@@ -39,7 +42,7 @@ def trim_string(S):
     mystr = [word for word in mystr if word.lower() not in nonsense]
 
     # remove more
-    mystr_less = [word for word in mystr if word.lower() not in stopwords.words('english')]
+    mystr_less = [word for word in mystr if word.lower() not in stop_words]
 
     if len(mystr_less) > 0 :
         mystr = mystr_less
