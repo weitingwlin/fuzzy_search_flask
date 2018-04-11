@@ -184,14 +184,14 @@ def plot_2D(Yin = None, notation = None, sizes = 1):
     source = ColumnDataSource(data=dict(Dim1 = Y[:,0], Dim2 = Y[:,1],
                                         names = notation, sizes = sizes * 0.1,\
                                         colors = color))
-    p = figure(title='Dist. of 10th Grade Students at Lee High')\
+    p = figure(title='2-D representation of the distances between titles')\
                 # x_range=Range1d(-5, 5), y_range=Range1d(-5, 5))
                # , x_range=Range1d(140, 275))
     p.scatter(x='Dim1', y='Dim2', source=source, radius='sizes',\
               fill_color='colors', fill_alpha=0.6,\
               line_color=None)
-    p.xaxis[0].axis_label = 'Weight (lbs)'
-    p.yaxis[0].axis_label = 'Height (in)'
+    p.xaxis[0].axis_label = 'MDS-1'
+    p.yaxis[0].axis_label = 'MDS-2'
     labels = LabelSet(x='Dim1', y='Dim2', text='names', level='glyph',
               x_offset=0, y_offset=0.05, source=source, render_mode='canvas')
     p.add_layout(labels)

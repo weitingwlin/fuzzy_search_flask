@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, flash, redirect, request, session
-from app.forms import AppForm#, N_result
+from app.forms import AppForm, emojiForm#, N_result
 from app.search_app import search_app, suggestion_plot, plot_2D
 from bokeh.embed import components
 from bokeh.resources import CDN
@@ -31,8 +31,9 @@ def my_app():
                            N_out = session['n_out'],
                         script=script, div=div,  bokeh_js=CDN.render_js())
 
-@app.route('/app/add', methods=['GET', 'POST'])
-def my_app_add():
+@app.route('/emoji', methods=['GET', 'POST'])
+def my_emoji():
+    form = emojiForm()
     # p = suggestion_plot()
     # script, div = components(p)
-    return redirect('/app')
+    return render_template('emoji.html', form = form)
