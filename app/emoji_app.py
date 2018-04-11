@@ -12,11 +12,12 @@ from keras.models import Model,load_model
 
 ###############
 c_dict = dill.load( open("app/data/morecommon_dict.pkl","rb"))
-vocab = list(c_dict.keys())
-# build a small word2ind dictionary
-word2ind = {}
-for i,w in enumerate(vocab):
-    word2ind[w] = i
+word2ind = dill.load( open("app/data/word2ind.pkl","rb"))
+# vocab = list(c_dict.keys())
+# # build a small word2ind dictionary
+# word2ind = {}
+# for i,w in enumerate(vocab):
+#     word2ind[w] = i
 
 emogi_dict = {0:'',1:'😀',2: '🤔',3: '😥',4:'😱',5:'😒',6:'👍'}
 mymodel = load_model('app/data/emoji_model.h5')
@@ -25,8 +26,9 @@ Len = 15
 
 # url = 'https://www.audible.com/pd/Classics/A-Clockwork-Orange-Audiobook/B002V1OHIW'
 def show_emoji(url):
-    res = get_emoji(url, mymodel, max_reviewers = 10, max_sentences=10, thresh = 0.5)
-    print(len(res))
+    res = get_emoji(url, mymodel, max_reviewers = 10, max_sentences=5, thresh = 0)
+
+    # print(len(res))
     return res[:20]
 
 

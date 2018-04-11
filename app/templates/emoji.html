@@ -23,7 +23,17 @@
       <!-- <div> -->
 
                   {% for review in res %}
-                   <h4> {{review[0]}} --> {{review[1]}} </h4> 
+                    <div class="well well-sm">
+                    <div class="row">
+
+                      <div class="col-md-1">
+                        <h2 >{{review[1]}}</h2>
+                      </div>
+                      <div class="col-md-10">
+                        <h4> "{{review[0]}} " </h4>
+                      </div>
+                </div>
+                 </div>
                   {% endfor %}
 
           <!-- </div> -->
