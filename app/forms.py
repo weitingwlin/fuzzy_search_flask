@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, BooleanField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, URL
 
 class AppForm(FlaskForm):
     searchstring = StringField('Search:',default='Apple', validators=[DataRequired()])
@@ -11,7 +11,7 @@ class AppForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class emojiForm(FlaskForm):
-    audible_url = StringField('Paste audible.com url here:',default='', validators=[DataRequired()])
+    audible_url = StringField('Paste audible.com url here:',default='', validators=[DataRequired(), URL()])
     submit = SubmitField('Submit')
 
 # class N_result(FlaskForm):

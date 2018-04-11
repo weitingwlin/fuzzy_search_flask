@@ -25,8 +25,9 @@ def search_app(S, categories = ['fiction'], n = 5):
     titles, ind = fuzzy_find2(S, cat_books, maxshow=n)
     links = cat_books['link'][ind]
     zipped = [[t,l] for t, l in zip(titles, links)]
-
+    # return titles
     return zipped
+
 
 
 ##### functions below
