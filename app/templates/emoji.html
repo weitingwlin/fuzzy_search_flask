@@ -1,8 +1,10 @@
-{% extends "base.html" %}
+{% extends "base1.html" %}
 {% block app_content %}
  {{ form.csrf_token }}
 
+    <div class="container"  style="margin-top:70px">
   <h1>Emoji prediction 😉</h2>
+
     <form class="form-group" action="" method="post">
         <p>
           {{ form.hidden_tag() }}
@@ -18,12 +20,14 @@
 
 
 
+
       <div class="row">
           <!-- <div class="col-md-6"> -->
       <!-- <div> -->
 
                   {% for review in res %}
-                    <div class="well well-sm">
+                    <div class="card bg-light">
+                       <div class="card-body">
                     <div class="row">
 
                       <div class="col-md-1">
@@ -33,13 +37,14 @@
                         <h4> "{{review[0]}} " </h4>
                       </div>
                 </div>
+              </div>
                  </div>
                   {% endfor %}
 
           <!-- </div> -->
 
       </div>
-
+</div>
       <!-- <form method="post">
           <h3>Print {{ N_out }} results</h3>
           <input type="submit" value="more" >

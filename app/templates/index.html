@@ -1,21 +1,59 @@
 
-{% extends "base.html" %}
+{% extends "base1.html" %}
 {% block app_content %}
 
-
+<div class="jumbotron jumbotron-fluid">
+    <div class="container " style="margin-top:40px">
   <h1>Fuzzy search</h2>
+    <h5 id="toc_0">Using the best-selling fiction titles on audible.com, I built a <a href="/app"> fuzzy search app </a>  that allows users to find what we want even when we mess up with the keywords. And I built an <a href="/emoji"> emoji-tagger</a>  that provides a quick visual idea of people&#39;s opinion on the book.</h3>
+    </div>
+</div>
+  <div class="container " style="margin-top:30px">
+    <h3 id="toc_1">&quot;Find the butterfly book, or something like that!&quot;</h3>
 
-  <h3 id="toc_0">&quot;Find me the butterfly book, or something like that!&quot;</h3>
+    <p>When we search for something, we use keywords. However, we can mess up with the keywords. Say, if we type in &quot;Butterfly&quot; as the keywords when the book is actually called &quot;Dragonfly in amber&quot;. </p>
 
-  <p>When we &quot;search&quot; for something from a database, we type a few words that we think are the &quot;keywords&quot;. However, more often when what we type in keywords, what we actually mean is <strong>&quot;show me this butterfly book, or something like that&quot;</strong>. In this case, most of current web application may not give you the book that you actually want.</p>
+    <p>In this case, what we actually mean is <strong>&quot;find the butterfly book, or something like that&quot;</strong>. In other words, we want to be allowed some fuzziness in searching. </p>
 
-  <p>I am building a &quot;fuzzy search&quot; app that can return results base on the similarity of meanings the search keywords. This is possible using the <a href="https://code.google.com/archive/p/word2vec/"><strong>word2vec</strong> (word to vector) model pre-trained with google news</a>, and natural language processing (NLP) skills.</p>
+    <p>I am building a fuzzy search app to deal with this &quot;or something like that&quot; problem. The current app can return results base on the similarity of meanings the search keywords. The model behind the app utilizes techniques in natural language processing (NLP) and the <a href="https://code.google.com/archive/p/word2vec/">google <strong>word2vec</strong> word-embedding model</a>. </p>
 
-  <h3 id="toc_1">---&gt;<a href="/app">check out the app</a></h3>
+    <p>With the word-embedding model, we can search by the meaning of the words, rather than depend strictly matching of keywords. </p>
 
-  <p>Currently, the app is based on titles of the 500 best-selling Fiction books listed on <a href="https://www.audible.com/">audible.com</a>. User can type find <strong><a href="https://www.audible.com/pd/Classics/A-Clockwork-Orange-Audiobook/B002V1OHIW">A Clockwork Orange</a></strong> by typing in <strong>&quot;tangerine&quot;</strong> as the keyword. </p>
+    <p>Currently, the app is based on titles of the 500 best-selling Fiction books listed on <a href="https://www.audible.com/">audible.com</a>. User can type find <strong><a href="https://www.audible.com/pd/Classics/A-Clockwork-Orange-Audiobook/B002V1OHIW">A Clockwork Orange</a></strong> by typing in <strong>&quot;tangerine&quot;</strong> as the keyword. (<strong>This task is <a href="https://www.audible.com/search/ref=a_hp_tseft?advsearchKeywords=tangerine&amp;filterby=field-keywords">currently not easy on audible.com</a></strong>.)</p>
 
-  <p><strong>This task is <a href="https://www.audible.com/search/ref=a_hp_tseft?advsearchKeywords=tangerine&amp;filterby=field-keywords">currently not easy on audible.com</a></strong>.</p>
+    <p>(Please check out <a href="/how_it_works">&quot;How it works&quot;</a> for more technical details of the model.)</p>
+</div>
+  <div class="container " style="margin-top:30px">
+    <h3 id="toc_2">&quot;So, what do you think about it?&quot;</h3>
 
+    <p>After finding a book, the next thing we usually do is browsing through online reviews. We want to get an idea of what people think about this book. Emojis provide a quick visualization of how people feel about something.</p>
+
+    <p>I constructed a Recurrent Neural Network (RNN) model to predict emojis for sentences from a book reviews. Using the <strong>word2vec</strong> embedding, this task is possible (60% accuracy) with 1,000s of labeled training examples. </p>
+
+    <p>With emoji tagger, we can get a quick  visual idea on how other people think about a book.</p>
+
+   <div calss="card">
+     <div class="card-header">
+    <h4 id="toc_3">Emoji-sentence pair where predictions are &quot;correct&quot;:</h4>
+     </div>
+     <div class="card-body">
+    <h5 id="toc_4">😀 - &#39;plenty of laugh out loud moments&#39;</h5>
+
+    <h5 id="toc_5">🤔 - &#39;this story has been so inspirational to me, and makes you think deeply about current issues&#39;</h5>
+
+    <h5 id="toc_6">😥 - &#39;I wasn&#39;t sure what to expect but it left me in tears&#39;</h5>
+
+    <h5 id="toc_7">😱 - &#39;the horror does not disappoint in any of these regards&#39;</h5>
+
+    <h5 id="toc_8">😒 - &#39;i found this book pretty blah&#39;</h5>
+
+    <h5 id="toc_9">👍 -&#39;it is an absolute classic for many good reasons&#39;</h5>
+
+    <h5 id="toc_10">&#39;no emoji&#39;- &#39;there are a lot of pros and cons to this book&#39;</h5>
+   </div>
+  </div>
+    <p>(Please check out <a href="/how_it_works">&quot;How it works&quot;</a> for more technical details of the model.)</p>
+
+  </div>
 
 {% endblock %}
