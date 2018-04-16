@@ -64,11 +64,7 @@ def str2mat(instr, limit = 5, placeholder = None):
     placeholder: for the non-vocabularies
     '''
     # make a place-holder: mean of three strange words
-    if placeholder is None:
-        ph = np.ones(300)* 3
-
     mystr = trim_string(instr)
-
     # number of words
     L = min(len(mystr), limit)
 
@@ -78,6 +74,8 @@ def str2mat(instr, limit = 5, placeholder = None):
         if (mystr[l] in vocab):
             sheet[:,l] = c_dict[mystr[l]]
         else:
+            ph = np.ones(300)* 1
+            ph[random.sample(list(np.arange(300)), 20)] = -3
             sheet[:,l] = ph
 
     return L, sheet
@@ -117,6 +115,8 @@ def compare_mats(M1, M2 , ph = 2, stress = 0.2, penalty = 0.5):
     # penalty for unequal list
     if L2 > L1:
         dist = dist +  ((L2 - L1)/(L1 + L2) * penalty)
+    if L2 < L1:
+        dist = dist +  ((L1 - L2)/(L1 + L2) * penalty/2)
     return dist
 
 def compare_strs(S1, S2, limit = 5, placeholder = None):
