@@ -17,6 +17,7 @@
         </p>
         <br>
         <button type="button" class="btn">{{ form.submit() }}</button>
+
     </form>
 
 
@@ -40,6 +41,7 @@
               <h3>
                   {% for res in strout %}
                     <a href={{ res[1] }} target="_blank">  {{ res[0] }}</a>
+                    <a href='/emoji?link={{ res[1] }}' > emoji </a>
                       <br>
                   {% endfor %}
               </h3>

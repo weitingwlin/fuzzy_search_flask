@@ -9,6 +9,7 @@ from itertools import product, combinations
 from scipy.stats import rankdata
 from sklearn import manifold
 from numpy.random import random
+import random
 from bokeh.plotting import figure,  show, output_file
 from bokeh.models import ColumnDataSource, Range1d, LabelSet, Label
 import dill
