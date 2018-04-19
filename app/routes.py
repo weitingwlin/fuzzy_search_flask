@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, flash, redirect, request, session
 from app.forms import AppForm, emojiForm#, N_result
-from app.search_app import search_app, suggestion_plot, plot_2D
+from app.search_app import search_app, plot_tab
 from app.emoji_app import show_emoji
 from bokeh.embed import components
 from bokeh.resources import CDN
@@ -20,31 +20,30 @@ def index():
 @app.route('/app', methods=['GET', 'POST'])
 def my_app():
     form = AppForm()
-    Sup = ""
+    Sup = " "
     session['n_out'] = 5
-    zipped = ['sou','/index']
-    if form.validate_on_submit():
+    zipped = ['','/index']
+    script,div = [],[]
+    if 1:
         print('validate')
-    zipped = search_app(form.searchstring.data, 5)
-    session['link_url'] = zipped[0][1]
-        # print(zipped)
-    # print(session['n_out'])
-    p = suggestion_plot(form.searchstring.data)
-    script, div = components(p)
+        zipped = search_app(form.searchstring.data, n= 8)
+        p = plot_tab(form.searchstring.data)
+
+        script, div = components(p)
     # print(zipped)
     return render_template('app.html', form = form, strout = zipped, \
-                           N_out = session['n_out'],
-                        script=script, div=div,  bokeh_js=CDN.render_js())
+                           N_out = session['n_out'], mytitle=form.searchstring.data,
+                        script=script, div=div)
 
 @app.route('/emoji/', methods=['GET', 'POST'])
 # @app.route('/emoji/<link>', methods=['GET', 'POST'])
-def my_emoji(link = 'default link'):
-
+def my_emoji(link = '', title = ''):
     form = emojiForm()
     res = []
     query_val = request.args.get('link',link)
+    title = request.args.get('title','')
     # print(link)
-    if link:
+    if query_val:
         res = show_emoji(query_val)
         print("query")
         print(query_val)
@@ -53,6 +52,4 @@ def my_emoji(link = 'default link'):
         res = show_emoji(form.audible_url.data)
 
 
-    # p = suggestion_plot()
-    # script, div = components(p)
-    return render_template('emoji.html',res=res, form = form)
+    return render_template('emoji.html',res=res, form = form, title=title)
