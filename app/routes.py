@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, flash, redirect, request, session
 from app.forms import AppForm, emojiForm#, N_result
-from app.search_app import search_app, plot_tab
+from app.search_app import search_app, plot_tab, plot_demo
 from app.emoji_app import show_emoji
 from bokeh.embed import components
 from bokeh.resources import CDN
@@ -15,7 +15,9 @@ from bokeh.models.glyphs import Text
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    p = plot_demo()
+    script, div = components(p)
+    return render_template('index.html', script=script, div=div)
 
 @app.route('/app', methods=['GET', 'POST'])
 def my_app():

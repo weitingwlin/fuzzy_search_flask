@@ -159,9 +159,9 @@ def string_distance(Slist, limit = 5, placeholder = None):
     return dist
 
 
-def suggestion_map(mytitle, shelf, n_init =10, maxshow=15):
+def suggestion_map(mytitle, shelf, n_init =10, maxshow=25):
     # 1. get a list of suggested books
-    thresh = 5
+    thresh = 10
     S_list, S_indices = fuzzy_find2(mytitle, shelf, maxshow = maxshow, threshhold = thresh)
     # 2. calculate distance matrix
     Dist = string_distance(S_list + [mytitle], limit = 5, placeholder = None)
@@ -173,41 +173,10 @@ def suggestion_map(mytitle, shelf, n_init =10, maxshow=15):
     similarity = thresh - Dist[-1,:]
     return Y, notation, similarity
 
-# def plot_2D(Yin = None, notation = None, sizes = 1):
-#     # p = figure(tools='save')
-#     # p.scatter(Y[:,0], Y[:,1], fill_alpha=0.6)#,
-#     xmock = max(Yin[:,0]) + 2
-#     ymock = max(Yin[:,1]) + 0.5
-#     Y = np.concatenate((np.array([xmock, ymock]).reshape(1,2),  Yin), axis=0)
-#     #
-#     sizes =  np.concatenate((np.array([0]),  sizes), axis=0)
-#     notation =  np.concatenate((np.array([""]),  notation), axis=0)
-#
-#
-#     color = ["#1f1b99" for i in sizes]
-#     color[-1] = "#f442c5"
-#     source = ColumnDataSource(data=dict(Dim1 = Y[:,0], Dim2 = Y[:,1],
-#                                         names = notation, sizes = sizes * 0.1,\
-#                                         colors = color))
-#     p = figure(title='2-D representation of the distances between titles')
-#     p.scatter(x='Dim1', y='Dim2', source=source, radius='sizes',
-#               fill_color='colors', fill_alpha=0.6,
-#               line_color=None)
-#     p.xaxis[0].axis_label = 'Dimension 1'
-#     p.yaxis[0].axis_label = 'Dimension 2'
-#     labels = LabelSet(x='Dim1', y='Dim2', text='names', level='glyph',
-#               x_offset=0, y_offset=0.05, source=source, render_mode='canvas')
-#     p.add_layout(labels)
-#
-#     return p
-
-# def suggestion_plot(mytitle):
-#     Y, notation, sizes = suggestion_map(mytitle, books)
-#     return plot_2D(Y, notation, sizes)
 
 def plot_tab(mytitle, Yin = None, notation = None, sizes = 1):
     threshhold = 5
-    titles, ind = fuzzy_find2(mytitle, shelf = cat_books, maxshow = 8, threshhold = 5)
+    titles, ind = fuzzy_find2(mytitle, shelf = cat_books, maxshow = 20, threshhold = 5)
     links = cat_books['link'][ind]
 
 
@@ -219,7 +188,7 @@ def plot_tab(mytitle, Yin = None, notation = None, sizes = 1):
     notation = titles + [mytitle]
     similarity = threshhold - Dist[-1,:]
     # plot
-    p = figure(plot_width=600, plot_height=600,
+    p = figure(plot_width=700, plot_height=700,
                tools=["tap", 'box_zoom', 'reset', 'pan'], title="Book titles similar to \" " + mytitle +"\"",
                )
     source = ColumnDataSource(data=dict(
@@ -237,4 +206,26 @@ def plot_tab(mytitle, Yin = None, notation = None, sizes = 1):
     url = "@urls"
     taptool = p.select(type=TapTool)
     taptool.callback = OpenURL(url=url)
+    return p
+
+mydemo = ['orange', 'tangerine','lemon',\
+          'butterfly', 'dragonfly','bee', \
+           'genius', 'Einstein', 'brilliant']
+Y = manifold.MDS(n_components= 2,n_init = 100,random_state=2,dissimilarity='precomputed', metric=False)\
+    .fit_transform(string_distance(mydemo))
+
+def plot_demo():
+    p = figure(plot_width=600, plot_height=600,
+           tools=[ 'box_zoom', 'reset', 'pan'], title="",
+          x_range=(-0.6, 0.6), y_range=(-0.6, 0.6))
+    source = ColumnDataSource(data=dict(
+                            x=Y[:,0],
+                            y=Y[:,1],
+                            color=['orange','orange','orange','green','green','green','blue','blue','blue'],
+                             names = mydemo))
+    p.circle('x', 'y', color='color', size=20, source=source ,fill_alpha=0.4,line_color=None)
+    p.xaxis[0].axis_label = 'Dimension 1'
+    p.yaxis[0].axis_label = 'Dimension 2'
+    glyph = Text(x="x", y="y", text="names", angle=0.5, text_color="#1a3c72")
+    p.add_glyph(source, glyph)
     return p
