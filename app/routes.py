@@ -44,14 +44,12 @@ def my_emoji(link = '', title = ''):
     res = []
     query_val = request.args.get('link',link)
     title = request.args.get('title','')
-    # print(link)
     if query_val:
         res = show_emoji(query_val)
-        print("query")
-        print(query_val)
     if form.validate_on_submit():
-        # print(session.get('link_url', 'not set'))
         res = show_emoji(form.audible_url.data)
-
-
     return render_template('emoji.html',res=res, form = form, title=title)
+
+@app.route('/about_me')
+def about_me():
+    return render_template('about_me.html')
