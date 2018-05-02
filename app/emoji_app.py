@@ -18,18 +18,17 @@ word2ind = dill.load( open("app/data/word2ind.pkl","rb"))
 # word2ind = {}
 # for i,w in enumerate(vocab):
 #     word2ind[w] = i
-
-emogi_dict = {0:'',1:'😀',2: '🤔',3: '😥',4:'😱',5:'😒',6:'👍'}
+# random.seed(3)
+emoji_dict = {0:'',1:'😀',2: '🤔',3: '😥',4:'😱',5:'😒',6:'👍'}
 mymodel = load_model('app/data/emoji_model.h5')
-Len = 15
+Len = 20
 ###############
 
 # url = 'https://www.audible.com/pd/Classics/A-Clockwork-Orange-Audiobook/B002V1OHIW'
 def show_emoji(url):
-    res = get_emoji(url, mymodel, max_reviewers = 10, max_sentences=5, thresh = 0)
+    res = get_emoji(url, mymodel, max_reviewers = 30, max_sentences=10)
 
-    # print(len(res))
-    return res[:20]
+    return res
 
 
 #################
@@ -79,16 +78,35 @@ def get_reviews(url, max_reviewers=1, max_sentences=1):
         short_review =  short_review + selected_sentences
     return short_review
 
-def get_emoji(url, model, max_reviewers = 10, max_sentences=10, thresh =0.9):
+def get_emoji(url, model, max_reviewers = 10, max_sentences=10):
     temp = get_reviews(url, max_reviewers, max_sentences)
     temp = [s for s in temp if s != '']
     t_ind = review_to_indices(temp, word_to_index=word2ind, max_len = Len)
     res = model.predict(t_ind)
     #
-    thresh_ind = np.max(res, axis=1) > thresh
+    # thresh_ind = np.max(res, axis=1) > thresh
     predicted = np.argmax(res, axis=1)
     emos = []
     for i, t in enumerate(temp):
-        if predicted[i] != 0 and thresh_ind[i]:
-            emos.append([t, emogi_dict[predicted[i]]  ])
+        if predicted[i] != 0 :
+            emos.append([t, emoji_dict[predicted[i]] , predicted[i] ])
     return emos
+
+def emo_hist(res):
+    # take result from `get emoji`
+    hist = [0,0,0,0,0,0,0]
+    for emo in res:
+        hist[emo[2]] += 1
+    return hist
+
+def rank_emo(res, emoji_dict=emoji_dict):
+    hist = emo_hist(res)
+    total = sum(hist)
+    freq = [ h/total for h in hist]
+    emoji_list = [i for i in emoji_dict.values()]
+    em_sorted = ['']
+    co_sorted = [max(freq) + 0.25]
+    for em, co in sorted(zip(emoji_list[1:], freq[1:]),  key= lambda x:x[1], reverse=True):
+        em_sorted.append(em)
+        co_sorted.append(co)
+    return em_sorted, co_sorted, total

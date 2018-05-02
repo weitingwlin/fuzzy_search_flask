@@ -3,7 +3,7 @@ from wtforms import StringField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, URL
 
 class AppForm(FlaskForm):
-    searchstring = StringField('Search:', default="", validators=[DataRequired()])
+    searchstring = StringField('It\'s about... :', default="", validators=[DataRequired()])
     audible_url = StringField('Paste audible.com url here:',default='', validators=[DataRequired()])
     fiction = BooleanField('Fiction', default=True)
     history = BooleanField('History')

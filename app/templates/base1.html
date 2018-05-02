@@ -4,8 +4,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Fuzzy Search</title>
-    <link rel="icon"  type="image/png"  href="static/icon.png">
+    <title>Mind the Text</title>
+    <link rel="icon"  type="image/png"  href="static/search.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <link rel='stylesheet' href="static/css/fontawesome-all.min.css"> -->
 
@@ -40,13 +40,20 @@
 
   <nav class="navbar bg-light navbar-expand-sm fixed-top ">
     <!-- Brand -->
-      <a class="navbar-brand" href="/index"><i class="fas fa-home"></i> Fuzzy Search</a>
+      <a class="navbar-brand" href="/index"><i class="fas fa-home"></i> Mind the Text</a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
+  <!-- <span class="navbar-toggler-icon"></span> -->
+  &#9776;
+  </button>
 
       <!-- Links -->
-      <ul class="navbar-nav mr-auto">
+      <div class="collapse navbar-collapse" id="nav-content">
+
+      <ul class="nav navbar-nav mr-auto">
 
         <li class="nav-item">
-          <a class="nav-link" href="/app">   <i class="fas fa-search"></i> APP</a>
+          <a class="nav-link" href="/app">   <i class="fas fa-search"></i>SEARCH</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/emoji"> <i class="far fa-smile"></i> EMOJI</a>
@@ -61,6 +68,8 @@
           <a class="nav-link" href="/about_me">ABOUT ME</a>
         </li>
       </ul>
+    </div>     <!-- collapse navbar-toggleable-md"-->
+
 
   </nav>
 

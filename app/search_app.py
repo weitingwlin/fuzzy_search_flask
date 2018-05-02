@@ -26,7 +26,7 @@ cat_books = books[books['category'].isin(['fiction'])]
 
 def search_app(S, categories = ['fiction'], n = 5):
 #     print(cat_books)
-    titles, ind = fuzzy_find2(S, cat_books, maxshow=n)
+    titles, ind = fuzzy_find2(S, cat_books, maxshow=n )
     links = cat_books['link'][ind]
     zipped = [[t,l] for t, l in zip(titles, links)]
     # return titles
@@ -43,11 +43,7 @@ def trim_string(S):
     # split at punctuation or space
 
     mystr =[s.lower() for s in mystr1]
-    # Remove "the", "a", "an"
-    # nonsense = ["the", "a", "an", "and", "to","on", "from", "in", "by"]
-    # mystr = [word for word in mystr if word.lower() not in nonsense]
 
-    # remove more
     mystr_less = [word for word in mystr if word.lower() not in stop_words]
 
     if len(mystr_less) > 0 :
@@ -55,7 +51,7 @@ def trim_string(S):
 
     # remove placeholder
     mystr_less = [s for s in mystr if s in vocab]
-    if len(mystr_less) > 0 :
+    if len(mystr_less) > 1 :
         mystr = mystr_less
 
     return mystr
@@ -71,7 +67,6 @@ def str2mat(instr, limit = 5, placeholder = None):
     mystr = trim_string(instr)
     # number of words
     L = min(len(mystr), limit)
-
     ## padding up
     sheet = np.ones((300, limit))* 2
     for l in range(L):
@@ -81,11 +76,10 @@ def str2mat(instr, limit = 5, placeholder = None):
             ph = np.ones(300)* 1
             ph[random.sample(list(np.arange(300)), 20)] = -3
             sheet[:,l] = ph
-
     return L, sheet
 
 
-def compare_mats(M1, M2 , ph = 2, stress = 0.2, penalty = 0.5):
+def compare_mats(M1, M2 , ph = 2, stress = 0.5, penalty = 1):
     n, limit = M1.shape
     L1 = sum(M1[0,:] != 2 ) # lenth of
     L2 = sum(M2[0,:] != 2 )
@@ -120,7 +114,7 @@ def compare_mats(M1, M2 , ph = 2, stress = 0.2, penalty = 0.5):
     if L2 > L1:
         dist = dist +  ((L2 - L1)/(L1 + L2) * penalty)
     if L2 < L1:
-        dist = dist +  ((L1 - L2)/(L1 + L2) * penalty/2)
+        dist = dist +  ((L1 - L2)/(L1 + L2) * penalty/1)
     return dist
 
 def compare_strs(S1, S2, limit = 5, placeholder = None):
@@ -128,7 +122,7 @@ def compare_strs(S1, S2, limit = 5, placeholder = None):
     _, M2 = str2mat(S2, limit = limit)
     return compare_mats(M1, M2 , ph = placeholder)
 
-def fuzzy_find2(mytitle, shelf, maxshow = 10, threshhold = 5):
+def fuzzy_find2(mytitle, shelf, maxshow=10, threshhold = 5):
     '''
     mytitle: the user input keyword for fuzzy search
     shelf: df with column named 'title', find book from
@@ -179,7 +173,6 @@ def plot_tab(mytitle, Yin = None, notation = None, sizes = 1):
     titles, ind = fuzzy_find2(mytitle, shelf = cat_books, maxshow = 20, threshhold = 5)
     links = cat_books['link'][ind]
 
-
     Dist = string_distance(titles + [mytitle], limit = 5, placeholder = None)
     # 3. calculate Y
     Y = manifold.MDS(n_components= 2, n_init =  10, dissimilarity='precomputed')\
@@ -226,6 +219,32 @@ def plot_demo():
     p.circle('x', 'y', color='color', size=20, source=source ,fill_alpha=0.4,line_color=None)
     p.xaxis[0].axis_label = 'Dimension 1'
     p.yaxis[0].axis_label = 'Dimension 2'
-    glyph = Text(x="x", y="y", text="names", angle=0.5, text_color="#1a3c72")
+    glyph = Text(x="x", y="y", text="names", angle=0.5, text_color="#1a3c72", text_font_size="1.5em")
     p.add_glyph(source, glyph)
     return p
+
+def plot_emoji_hist(em_sorted, co_sorted, total):
+    source = ColumnDataSource(data=dict(
+                emoji=em_sorted,
+                counts=co_sorted,
+                color = ['#ffffff', '#5254a3', '#5254a3', '#5254a3', '#5254a3', '#5254a3', '#5254a3'],
+            #    legend = ["Baseline (no emoji)", "Frequency", "Frequency", "Frequency", "Frequency", "Frequency"],
+            #    desc = ["Baseline (no emoji)", "Frequency", "Frequency", "Frequency", "Frequency", "Frequency"]
+    ))
+
+    p = figure(x_range=em_sorted, plot_height=350, title="Summarized from " + str(total) + " review sentences",
+               toolbar_location=None, tools="hover")
+
+    p.vbar(x='emoji', top='counts', width=0.9, color='color', source=source,)
+    # p.xaxis.axis_label_text_font_size = "100pt"
+    labels = LabelSet(x='emoji', y='counts', text='emoji', level='glyph',text_font_size="32pt",
+                  x_offset=-5, y_offset=5, source=source, render_mode='canvas')
+    p.add_layout(labels)
+    # glyph = Text(x='emoji', y='counts', text="emoji", angle=0, text_color="#1a3c72", text_font_size="20pt")
+    # p.add_glyph(source, glyph)
+    p.axis.visible = False
+    p.ygrid.visible = False
+    p.xgrid.grid_line_color = None
+    p.legend.orientation = "vertical"
+    p.xaxis.major_label_text_font_size = '0pt'
+    return(p)

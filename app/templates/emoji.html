@@ -5,6 +5,11 @@
     <div class="container"  style="margin-top:80px">
     {% if title %}
       <h1>😉  Emoji prediction for "{{ title }}"</h2>
+
+          <!-- <h3>   What do you feel about "{{ title }}"?</h3> -->
+          {{ div|safe }}
+          {{ script|safe }}
+
     {% else %}
       <h1>Emoji prediction 😉 </h2>
     {% endif %}
@@ -39,13 +44,9 @@
                   </div>
                  </div>
                   {% endfor %}
-
   <a href="/index#index-emoji">More about the model</a>
 
-</div>
-      <!-- <form method="post">
-          <h3>Print {{ N_out }} results</h3>
-          <input type="submit" value="more" >
-      </form> -->
+</div> <!-- container -->
+
 
 {% endblock %}

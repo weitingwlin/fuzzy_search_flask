@@ -7,7 +7,8 @@
 
 
     <div class="container"  style="margin-top:80px">
-  <h1>Fuzzy search</h2>
+  <h1>Mind the Text:</h2>
+    <h2>Find an audiobook of fiction best-sellers</h2>
     <form class="form-group" action="" method="post">
         <p>
           {{ form.hidden_tag() }}
@@ -47,7 +48,7 @@
                   {{ res[0] }}
 
                     <a href={{ res[1] }} target="_blank"  data-toggle="tooltip" title="see this book at audible.com"> <i class="fas fa-external-link-alt"></i></a>
-                    <a href='/emoji?link={{ res[1] }}&title={{ res[0] }}'  data-toggle="tooltip" title="Show emoji!"> <i class="far fa-comments"></i> </a>
+                    <a href='/emoji?link={{ res[1] }}&title={{ res[0] }}'  data-toggle="tooltip" target="_blank" title="Show emoji!"> <i class="far fa-comments"></i> </a>
                       <br>
                   {% endfor %}
                     </h4>

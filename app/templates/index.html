@@ -2,97 +2,125 @@
 {% extends "base1.html" %}
 {% block app_content %}
 
-<div class="jumbotron jumbotron-fluid">
-    <div class="container " style="margin-top:80px">
-  <h1>Improving search experiences:</h1>
-  <h2> with a fuzzy search app  <a href="/app"><i class="fas fa-search"></i> </a> and an emoji tagger  <a href="/emoji"><i class="far fa-smile"></i></a></h2>
+<div class="jumbotron jumbotron-fluid" style="padding-top:70px; padding-bottom:0px; padding-left:0px">
+<div id="demo" class="carousel slide" data-ride="carousel">
 
-    <h5 id="toc_0">Using the 1000 fiction best-sellers on audible.com, I built a fuzzy search app that allows users to find what we want even when we mess up with the keywords, and an emoji-tagger that provides a quick visual idea of people&#39;s opinion on a book.</h3>
+  <!-- Indicators -->
+  <ul class="carousel-indicators">
+    <li data-target="#demo" data-slide-to="0" class="active"></li>
+    <li data-target="#demo" data-slide-to="1"></li>
+    <li data-target="#demo" data-slide-to="2"></li>
+  </ul>
+
+  <!-- The slideshow -->
+  <div class="carousel-inner">
+    <div class="carousel-item  active">
+      <img src="static/mtt.png"  calss="img-fluid" style="max-width: 100%" alt="New York">
+      <div class="carousel-caption" style="color:#454647">
+      <!-- <h1>Mind the Text</h1> -->
+      <h5>Using the 1000 fiction best-sellers on audible.com, Mind the Text allow a user to find an audio-book even when they forgot the exact title, and get a quick “emoji “summary of how other people think about this book.</h5>
+     </div>
     </div>
+    <div class="carousel-item">
+      <img src="static/tangerine.png" calss="img-fluid" style="max-width: 100%" alt="Los Angeles">
+    </div>
+    <div class="carousel-item">
+      <img src="static/review.png" calss="img-fluid" style="max-width: 100%" alt="Chicago">
+    </div>
+
+  </div> <!-- carousel-inner -->
+
+  <!-- Left and right controls -->
+  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class="carousel-control-next" href="#demo" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </a>
+
 </div>
+</div><!-- jumbotron for carousel -->
+
+
+<!-- <div class="jumbotron jumbotron-fluid">
+    <div class="container " style="margin-top:80px">
+  <h1></h1>
+  <h2></h2>
+
+  <h5 id="toc_0">Using the 1000 fiction best-sellers on audible.com, Mind the Text allow a user to find an audio-book even when they forgot the exact title, and get a quick “emoji “summary of how other people think about this book.</h3>
+  </div> -->
+<!-- </div> -->
   <div class="container " style="margin-top:80px">
-      <h3 id="toc_1">&quot;Find the butterfly book, or something like that!&quot;</h3>
-        <h2 id="toc">The fuzzy search app</h2>
-    <div class="row">
+
+      <div class="row">
        <div class="col-md-5">
 
+         <h2 id="toc_1">&quot;OK, I got the idea.&quot;</h2>
+           <h2 id="toc">The fuzzy search app using word-embedding</h2>
 
-    <p>When we search for something, we use keywords. However, we can mess up with the keywords. Say, if we type in &quot;Butterfly&quot; as the keywords when the book is actually called &quot;Dragonfly in amber&quot;. </p>
+    <p style="font-size:1.2em">When we search for something, we use keywords. However, we can mess up with the keywords.  </p>
+    <p style="font-size:1.2em">With the word-embedding model, we can search by the meaning of the words, rather than depend strictly matching of keywords. </p>
 
-    <p>In this case, what we actually mean is <strong>&quot;find the butterfly book, or something like that&quot;</strong>. In other words, we want to be allowed some fuzziness in searching. </p>
+    <p style="font-size:1.2em">The present app returns results base on the similarity in the meanings between the search keywords and the target item. It's like the app says &quot;OK... I got the idea&quot;. </p>
 
-    <p>I am building a fuzzy search app to deal with this &quot;or something like that&quot; problem. The current app can return results base on the similarity of meanings the search keywords. The model behind the app utilizes techniques in natural language processing (NLP) and the <a href="https://code.google.com/archive/p/word2vec/" target="_blank">google <strong>word2vec</strong> word-embedding model</a>. </p>
 
-    <p>With the word-embedding model, we can search by the meaning of the words, rather than depend strictly matching of keywords. </p>
 
-    <p>Currently, the app is based on titles of the 500 best-selling Fiction books listed on <a href="https://www.audible.com/" target="_blank">audible.com</a>. User can type find <strong><a href="https://www.audible.com/pd/Classics/A-Clockwork-Orange-Audiobook/B002V1OHIW" target="_blank">A Clockwork Orange</a></strong> by typing in <strong>&quot;tangerine&quot;</strong> as the keyword. (<strong>This task is <a href="https://www.audible.com/search/ref=a_hp_tseft?advsearchKeywords=tangerine&amp;filterby=field-keywords" target="_blank">currently not easy on audible.com</a></strong>.)</p>
+    <p style="font-size:1.2em">Currently, the app is based on titles of the 1000 best-selling Fiction books listed on <a href="https://www.audible.com/" target="_blank">audible.com</a>. User can type find <strong><a href="https://www.audible.com/pd/Classics/A-Clockwork-Orange-Audiobook/B002V1OHIW" target="_blank">A Clockwork Orange</a></strong> by typing in <strong>&quot;mechanical tangerine&quot;</strong> as the keyword. (<strong>This task is <a href="https://www.audible.com/search/ref=a_hp_tseft?advsearchKeywords=Mechanical%20tangerine&filterby=field-keywords" target="_blank">currently not as easy on audible.com</a></strong>.)</p>
    </div>
+
     <div class="col-md-7">
         <div class="card">
             <div class="card-body">
               <h4 class="card-title">What is word embedding?</h4>
-              <p class="card-text">Words similar in meanings are mapped closer together on this graph</p>
+              <p style="font-size:1.2em" class="card-text">Words similar in meanings are mapped closer together on this graph, as they are recognized similar by the model.</p>
               {% if div %}
                 {{ div|safe }}
                 {{ script|safe }}
               {% endif %}
-              <p class="card-text">With word embedding, we can conduct search base on similarity between target items and keywords.</p>
+              <p style="font-size:1.2em" class="card-text">With word embedding, we can conduct search base on similarity between target items and keywords.</p>
 
-              <a href="/how_it_works" class="card-link">How it works?</a>
             </div>
         </div> <!-- card -->
       </div> <!-- col -->
-    </div><!-- row -->
-</div>
+    </div>
+    </div>
+
+
   <div class="container " style="margin-top:80px">
-    <a name="index-emoji"><a>
-      <h3 id="toc_2">&quot;So, what do you think about it?&quot;</h3>
-        <h2 id="toc_2">The emoji tagger</h2>
+    <!-- <a name="index-emoji"><a> -->
     <div class="row">
-      <div class="col-md-6">
-        <a name="index-emoji"><a>
+        <!-- <a name="index-emoji"><a> -->
+          <div class="col-md-4">
+            <h3 id="toc_2">&quot;So, what do you think about it?&quot;</h3>
+              <h2 id="toc_2">The emoji tagger</h2>
+             <p style="font-size:1.2em">When we read online reviews, we try to interpret how other people feel about something base one the text they typed in. Here, we can instead get a quick emoji summary with a click.</p>
+
+             <p style="font-size:1.2em">This emoji tagger is base on a Recurrent neural network model, that also empowered by word embedding. We are basically doing sentiment analysis here, but the power of word embedding is that we can train a reasonable model with only thousands of example, this is a very small number for a deep learning model.  </p>
+
+             <p style="font-size:1.2em">If the model has learned that "it is an amazing book" means a 👍, it will also tag a 👍 to a comment like "this is awesome".  </p>
+
+         </div> <!-- col -->
+
+      <div class="col-md-8">
+
         <div calss="card">
           <div class="card-header">
          <h4 id="toc_3">RNN model for the emoji tagger</h4>
           </div>
           <div class="card-body">
-          <img src="static/RNN.png" calss="img-fluid" style="max-width: 100%" alt="RNN model">
-        </div>
-        <p>This recurrent neural network model includes two LSTM (long short term memory) layers and one dense (fully connected) layer.</p>
-        </div>
+              <img src="static/RNN.png" calss="img-fluid" style="max-width: 100%" alt="RNN model">
+          </div>
+        <p style="font-size:1.2em">This recurrent neural network model includes two LSTM (long short term memory) layers and one dense (fully connected) layer.</p>
+        </div> <!-- card -->
      </div> <!-- col -->
-       <div class="col-md-5">
-    <p>After finding a book, the next thing we usually do is browsing through online reviews. We want to get an idea of what people think about this book. Emojis provide a quick visualization of how people feel about something.</p>
-
-    <p>I constructed a Recurrent Neural Network (RNN) model to predict emojis for sentences from a book reviews. Using the <strong>word2vec</strong> embedding, this task is possible (60% test accuracy) with 1,000s of labeled training examples. </p>
-
-    <p>With emoji tagger, we can get a quick  visual idea on how other people think about a book.</p>
-    <div calss="card">
-      <div class="card-header">
-     <h4 id="toc_3">Examples of Emoji-Sentence pair:</h4>
-      </div>
-      <div class="card-body">
-     <h5 id="toc_4">😀 - &#39;Plenty of laugh out loud moments&#39;</h5>
-
-     <h5 id="toc_5">🤔 - &#39;This story has been so inspirational to me, and makes you think deeply about current issues&#39;</h5>
-
-     <h5 id="toc_6">😥 - &#39;I wasn&#39;t sure what to expect but it left me in tears&#39;</h5>
-
-     <h5 id="toc_7">😱 - &#39;The horror does not disappoint in any of these regards&#39;</h5>
-
-     <h5 id="toc_8">😒 - &#39;I found this book pretty blah&#39;</h5>
-
-     <h5 id="toc_9">👍 -&#39;It is an absolute classic for many good reasons&#39;</h5>
-
-     <h6 id="toc_10">&#39;no emoji&#39;- &#39;There are a lot of pros and cons to this book&#39;</h5>
-     <a href="/how_it_works" class="card-link">How it works?</a>
-    </div>
-    </div> <!-- card -->
-
-</div>
-
 </div> <!-- row -->
-
   </div>
+
+  <script>
+  $(document).ready(function(){
+      // Activate Carousel with a specified interval
+      $("#demo").carousel({interval: False});
+  });
+  </script>
 
 {% endblock %}
