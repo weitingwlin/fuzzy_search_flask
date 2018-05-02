@@ -23,17 +23,6 @@
 
 
 
-
-      <!-- <form class="form-group" action="" method="post">
-          <label class="checkbox-inline">
-              <input type="checkbox" value="">{{ form.fiction() }} {{ form.fiction.label }}
-          </label>
-          <label class="checkbox-inline">
-              <input type="checkbox" value="">{{ form.history() }} {{ form.history.label }}
-            </label>
-      </form> -->
-
-
       <div class="row">
           <div class="col-md-4">
       <!-- <div> -->
@@ -49,6 +38,8 @@
 
                     <a href={{ res[1] }} target="_blank"  data-toggle="tooltip" title="see this book at audible.com"> <i class="fas fa-external-link-alt"></i></a>
                     <a href='/emoji?link={{ res[1] }}&title={{ res[0] }}'  data-toggle="tooltip" target="_blank" title="Show emoji!"> <i class="far fa-comments"></i> </a>
+                    <!-- <a href='/app?link={{ res[1] }}&title={{ res[0] }}'  data-toggle="tooltip" target="_blank" title="Show emoji!"> <i class="far fa-comments"></i> </a> -->
+
                       <br>
                   {% endfor %}
                     </h4>
@@ -58,10 +49,16 @@
           <div class="col-md-8">
 
             {% if strout[0] %}
-                    <h3>   More titles similar to "{{ mytitle }}"</h3>
+                    <h3>   Similarity between titles and "{{ mytitle }}"</h3>
               {{ div|safe }}
               {{ script|safe }}
             {% endif %}
+
+              <!-- {% if div2 %}
+                      <h3>   More titles similar to "{{ mytitle }}"</h3>
+                {{ div2|safe }}
+                {{ script2|safe }}
+              {% endif %} -->
           </div>
       </div>
 </div>

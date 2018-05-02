@@ -20,21 +20,31 @@ def index():
     return render_template('index.html', script=script, div=div)
 
 @app.route('/app', methods=['GET', 'POST'])
-def my_app():
+def my_app(link = '', title = ''):
     form = AppForm()
     Sup = " "
     session['n_out'] = 5
     zipped = ['','/index']
     script,div = [],[]
+    script2,div2 = [],[]
+    res = []
+    query_val = request.args.get('link',link)
+    title = request.args.get('title','')
+    # if query_val:
+    #     res = show_emoji(query_val)
+    #     emo, cnt, total = rank_emo(res)
+    #     p2 = plot_emoji_hist(emo, cnt, total)
+    #     script2, div2 = components(p2)
     if 1:
         print('validate')
         zipped = search_app(form.searchstring.data, n= 5)
         p = plot_tab(form.searchstring.data)
         script, div = components(p)
+
     # print(zipped)
     return render_template('app.html', form = form, strout = zipped, \
                            N_out = session['n_out'], mytitle=form.searchstring.data,
-                        script=script, div=div)
+                        script=script, div=div, script2=script2, div2=div2)
 
 @app.route('/emoji/', methods=['GET', 'POST'])
 # @app.route('/emoji/<link>', methods=['GET', 'POST'])

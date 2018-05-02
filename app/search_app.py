@@ -170,7 +170,7 @@ def suggestion_map(mytitle, shelf, n_init =10, maxshow=25):
 
 def plot_tab(mytitle, Yin = None, notation = None, sizes = 1):
     threshhold = 5
-    titles, ind = fuzzy_find2(mytitle, shelf = cat_books, maxshow = 20, threshhold = 5)
+    titles, ind = fuzzy_find2(mytitle, shelf = cat_books, maxshow = 8, threshhold = 5)
     links = cat_books['link'][ind]
 
     Dist = string_distance(titles + [mytitle], limit = 5, placeholder = None)
@@ -181,7 +181,7 @@ def plot_tab(mytitle, Yin = None, notation = None, sizes = 1):
     notation = titles + [mytitle]
     similarity = threshhold - Dist[-1,:]
     # plot
-    p = figure(plot_width=700, plot_height=700,
+    p = figure(plot_width=500, plot_height=500,
                tools=["tap", 'box_zoom', 'reset', 'pan'], title="Book titles similar to \" " + mytitle +"\"",
                )
     source = ColumnDataSource(data=dict(
@@ -194,7 +194,7 @@ def plot_tab(mytitle, Yin = None, notation = None, sizes = 1):
     p.circle('x', 'y', color='color', size=20, source=source ,fill_alpha=0.4,line_color=None)
     p.xaxis[0].axis_label = 'Dimension 1'
     p.yaxis[0].axis_label = 'Dimension 2'
-    glyph = Text(x="x", y="y", text="names", angle=0.5, text_color="#1a3c72")
+    glyph = Text(x="x", y="y", text="names", angle=0.5, text_color="#1a3c72", text_font_size="1.5em")
     p.add_glyph(source, glyph)
     url = "@urls"
     taptool = p.select(type=TapTool)
