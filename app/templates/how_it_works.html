@@ -48,20 +48,26 @@
   </div>
   <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
     <div class="card-body">
+          <h3>Word embedding </h3>
           <p>Word embedding allows the model to "understand" word similarity, and this ability can be extended to sentences.</p>
           <p>For example:</p>
-          <p>(If we teach the model)</p>
-          <p>"blood is everywhere" --> 😱</p>
-          <p>(The model can do, even when the  word "gore" was not included in the training examples.)</p>
-          <p>"gore to the max" --> 😱</p>
+          <p>     (If we teach the model)</p>
+          <p style="font-size:1.5em">     "it is an amazing book" --> 👍 </p>
+          <p style="font-size:1.5em">     "blood is everywhere" --> 😱</p>
+          <p>     (The model can do, even when the  word "gore" and "awesome" were not included in the training examples.)</p>
+          <p style="font-size:1.5em">     "this is awesome" --> 👍 </p>
+          <p style="font-size:1.5em">     "gore to the max" --> 😱</p>
+
           <p>In other words, the model can understand a sentence even when the model has not "seen" some words in that sentence before.</p>
+          <h3>RNN</h3>
           <p>An RNN model is capable of "interpreting" sentences beyond the words. So it does not tag a thumb up anytime it sees the word "good", smile face anytime it sees the word "funny". </p>
           <p>Examples: </p>
-          <p>"good" --> 👍 </p>
-          <p>"not good" --> 😒</p>
-          <p>"this is not funny at all" --> " " (no emoji)</p>
+          <p style="font-size:1.5em">"good" --> 👍 </p>
+          <p style="font-size:1.5em">"not good" --> 😒</p>
+          <p style="font-size:1.5em">"this is not funny at all" --> " " (no emoji)</p>
+          <h3>LSTM</h3>
           <p>LSTM architecture allows the RNN model to "hold that memory" longer, so the model is capable of task like these:</p>
-          <p>"not at all as good as expected" --> 😒</p>
+          <p style="font-size:1.5em">"not at all as good as expected" --> 😒</p>
     </div>
   </div>
 </div> <!-- card 3 -->
@@ -108,7 +114,7 @@
           <img src="static/case1.png" calss="img-fluid" style="max-width: 85%" alt="use case1">
           <p>Or, quickly filter out the most urgent comments to a specialized "first aid" group.</p>
           <img src="static/case2.png" calss="img-fluid" style="max-width: 85%" alt="use case2">
-          
+
       </div>
     </div>
   </div> <!-- card 4 -->
