@@ -70,4 +70,4 @@ def about_me():
 
 @app.route('/how_it_works')
 def how_it_works():
-    return render_template('how_it_works.html')
+    return render_template('how_it_works2.html')

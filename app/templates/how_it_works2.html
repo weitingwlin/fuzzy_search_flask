@@ -1,0 +1,76 @@
+{% extends "base1.html" %}
+{% block app_content %}
+
+<body data-spy="scroll" data-target="#myScrollspy" data-offset="1">
+<div class="container-fluid" style="margin-top:80px; font-size:1.2em" >
+  <div class="row">
+     <div class="col-sm-3 col-4"><!--hidden spacer--></div>
+    <nav class="col-sm-3 col-4" id="myScrollspy" style="position: fixed">
+      <ul class="nav nav-pills flex-column">
+        <li class="nav-item">
+          <a class="nav-link active" href="#section1">The emoji model</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#section2">Use cases</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#section3">word2vec, RNN and LSTM</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#section4">Data sources</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="col-sm-9 col-8">
+      <div id="section1" style="margin-top:60px">
+        <h1>The emoji model</h1>
+        <img src="static/RNN.png" calss="img-fluid" style="max-width: 85%" alt="RNN model">
+         <p>Each word in the string is first embbeded to a vector of length = 300, then feed into the recurrent neural network (RNN) model. </p>
+         <p>The RNN model consists two long-short-term memory (LSTM) layers.</p>
+
+      </div>
+      <div id="section2" style="margin-top:60px">
+        <h1>Examples of customized sentiment analysis tasks</h1>
+        <p>Sentiment analysis use cases are usually very context dependent, you probably don't need to identify a "screaming in fear" face in every of your business, but the small training example requirement means that the technique used in this app can easily be transferred to build a customized model.</p>
+        <p>For example, you can build a model to dedicate customer emails to different departments of the company. </p>
+        <img src="static/case1.png" calss="img-fluid" style="max-width: 85%" alt="use case1">
+        <p>Or, quickly filter out the most urgent comments to a specialized "first aid" group.</p>
+        <img src="static/case2.png" calss="img-fluid" style="max-width: 85%" alt="use case2">
+
+      </div>
+      <div id="section3" style="margin-top:60px">
+        <h1>word2vec, RNN and LSTM</h1>
+        <h3>Word embedding </h3>
+        <p>Word embedding allows the model to "understand" word similarity, and this ability can be extended to sentences.</p>
+        <p>For example:</p>
+        <p>     (If we teach the model)</p>
+        <p style="font-size:1.5em">     "it is an amazing book" --> 👍 </p>
+        <p style="font-size:1.5em">     "blood is everywhere" --> 😱</p>
+        <p>     (The model can do, even when the  word "gore" and "awesome" were not included in the training examples.)</p>
+        <p style="font-size:1.5em">     "this is awesome" --> 👍 </p>
+        <p style="font-size:1.5em">     "gore to the max" --> 😱</p>
+
+        <p>In other words, the model can understand a sentence even when the model has not "seen" some words in that sentence before.</p>
+        <h3>RNN</h3>
+        <p>An RNN model is capable of "interpreting" sentences beyond the words. So it does not tag a thumb up anytime it sees the word "good", smile face anytime it sees the word "funny". </p>
+        <p>Examples: </p>
+        <p style="font-size:1.5em">"good" --> 👍 </p>
+        <p style="font-size:1.5em">"not good" --> 😒</p>
+        <p style="font-size:1.5em">"this is not funny at all" --> " " (no emoji)</p>
+        <h3>LSTM</h3>
+        <p>LSTM architecture allows the RNN model to "hold that memory" longer, so the model is capable of task like these:</p>
+        <p style="font-size:1.5em">"not at all as good as expected" --> 😒</p>
+      </div>
+      <div id="section4" style="margin-top:60px">
+        <h1>Data sources</h1>
+        <p>The book titles and reviews were scrapped from <a href="https://www.audible.com/" target="_blank">audible.com</a></p>
+        <p>The word2vec pretrained model ws downloaded from <a href="https://code.google.com/archive/p/word2vec/">the google code archive</a>. </p>
+        <p>The source code of this project is on <a href="https://github.com/weitingwlin/fuzzy_search_flask">Github</a>. </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+</body>
+{% endblock %}
